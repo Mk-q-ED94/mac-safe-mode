@@ -1,5 +1,7 @@
 # MacSafe
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 MacSafe 是一款原生 macOS 菜单栏应用，当您离开设备时自动监控周围环境，防止未经授权的访问。
 
 ---

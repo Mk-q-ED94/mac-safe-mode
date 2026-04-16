@@ -1,5 +1,7 @@
 # MacSafe
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 MacSafe is a native macOS menubar application that monitors your device's surrounding environment when you're away, helping protect it from unauthorized access.
 
 ## Features

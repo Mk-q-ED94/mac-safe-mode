@@ -19,16 +19,51 @@ MacSafe is a native macOS menubar application that monitors your device's surrou
 
 - macOS 13.0 (Ventura) or later
 - Xcode 15.0 or later
-- An Apple Developer account (for code signing)
+- A free Apple ID **or** no account at all (see build options below)
+- A paid Apple Developer account is **not required**
 
 ## Getting Started
 
-### Build with Xcode
+### Option A — Free Apple ID (recommended)
 
-1. Open `MacSafe.xcodeproj` in Xcode
-2. Select the `MacSafe` target
-3. Set your Development Team under **Signing & Capabilities**
-4. Build and Run (`⌘R`)
+You only need a regular Apple ID, not a paid Developer membership.
+
+1. Open Xcode → **Settings → Accounts** → add your Apple ID
+2. Open `MacSafe.xcodeproj`
+3. Select the `MacSafe` target → **Signing & Capabilities**
+4. Set **Team** to `Your Name (Personal Team)`
+5. Change **Bundle Identifier** to something unique, e.g. `com.yourname.macsafe`
+6. Press `⌘R` — Xcode signs and runs the app on your Mac
+
+> Personal Team certificates are valid for 7 days for devices registered to your Apple ID.
+> Re-running from Xcode re-signs automatically.
+
+### Option B — No Apple ID (Sign to Run Locally)
+
+Xcode 13+ can sign apps with a local self-signed certificate, no account needed.
+
+1. Open `MacSafe.xcodeproj`
+2. Select the `MacSafe` target → **Signing & Capabilities**
+3. Uncheck **Automatically manage signing**
+4. Set **Signing Certificate** to **Sign to Run Locally**
+5. Press `⌘R`
+
+The app runs on your Mac only and cannot be shared as-is to other Macs.
+
+### Sharing the built app (without notarization)
+
+macOS Gatekeeper will show a warning the first time someone opens an unsigned or
+unnotarized app downloaded from the internet. Bypass it with either method:
+
+**Method 1 — Right-click open (one-time)**
+Right-click the `.app` → **Open** → click **Open** in the dialog.
+
+**Method 2 — Strip quarantine flag**
+```bash
+xattr -cr /path/to/MacSafe.app
+```
+
+> These steps are needed once per machine. After that the app opens normally.
 
 ### Regenerate project with XcodeGen (optional)
 

@@ -50,31 +50,63 @@ MacSafe 是一款原生 macOS 菜单栏应用，当您离开设备时自动监�
 
 - **macOS 13.0 (Ventura)** 或更高版本
 - **Xcode 15.0** 或更高版本（用于编译）
-- Apple 开发者账号（用于代码签名）
+- 普通 Apple ID **或** 完全不需要账号（见下方构建方式）
+- **不需要**付费 Apple 开发者账号
 - 加速度计功能需要 **Apple Silicon MacBook**（M1 或更新）
 
 ---
 
 ## 安装与构建
 
-### 方式一：直接用 Xcode 构建（推荐）
+### 方式一：免费 Apple ID（推荐）
 
-1. 克隆仓库：
+只需普通 Apple ID，无需付费开发者会员资格。
+
+1. 克隆仓库并打开项目：
    ```bash
    git clone <仓库地址>
-   cd mac-safe-mode
+   open mac-safe-mode/MacSafe.xcodeproj
    ```
 
-2. 打开 Xcode 项目：
-   ```bash
-   open MacSafe.xcodeproj
-   ```
+2. 在 Xcode 中选择 `MacSafe` target → **Signing & Capabilities** 标签页
 
-3. 在 Xcode 中选择 `MacSafe` target，进入 **Signing & Capabilities** 标签页，将 **Team** 设置为您的 Apple 开发者账号。
+3. 将 **Team** 设置为 `您的姓名 (Personal Team)`（首次需在 Xcode → Settings → Accounts 中添加 Apple ID）
 
-4. 按 `⌘R` 编译并运行。成功后菜单栏右上角会出现一个盾牌图标。
+4. 将 **Bundle Identifier** 改为唯一值，例如 `com.yourname.macsafe`
 
-### 方式二：使用 XcodeGen 重新生成项目
+5. 按 `⌘R` 编译运行，菜单栏出现盾牌图标即成功
+
+> Personal Team 证书有效期 7 天，从 Xcode 重新运行会自动续签，无需手动操作。
+
+### 方式二：无账号本地签名（Sign to Run Locally）
+
+Xcode 13+ 可使用本机自签证书，完全不需要 Apple ID。
+
+1. 打开 `MacSafe.xcodeproj`
+2. 选择 `MacSafe` target → **Signing & Capabilities**
+3. 取消勾选 **Automatically manage signing**
+4. 将 **Signing Certificate** 设置为 **Sign to Run Locally**
+5. 按 `⌘R` 运行
+
+此方式构建的应用只能在本机运行，无法直接分享给他人。
+
+### 分享构建好的 .app（无公证情况下）
+
+通过网络下载的应用首次打开时，macOS Gatekeeper 会显示安全警告，可用以下任一方式绕过：
+
+**方法一：右键打开（推荐，一次性操作）**
+
+右键点击 `.app` → **打开** → 在弹出对话框中点击 **打开**
+
+**方法二：终端移除隔离标记**
+
+```bash
+xattr -cr /path/to/MacSafe.app
+```
+
+> 以上操作每台 Mac 只需执行一次，之后双击即可正常打开。
+
+### 方式三：使用 XcodeGen 重新生成项目
 
 如果修改了 `project.yml` 后需要重新生成 `.xcodeproj`：
 

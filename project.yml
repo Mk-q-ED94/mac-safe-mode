@@ -45,3 +45,4 @@ targets:
       - sdk: UserNotifications.framework
       - sdk: IOKit.framework
       - sdk: Accelerate.framework
+      - sdk: CoreMotion.framework

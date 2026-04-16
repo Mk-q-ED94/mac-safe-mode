@@ -25,6 +25,7 @@ final class MonitoringCoordinator: ObservableObject {
     private let faceDetector = FaceDetector()
     private let videoRecorder = VideoRecorder()
     private let audioMonitor = AudioMonitor()
+    private let accelerometerMonitor = AccelerometerMonitor()
     private let alertService: AlertService
     let settings: AppSettings
 
@@ -113,6 +114,9 @@ final class MonitoringCoordinator: ObservableObject {
         if settings.audioEnabled {
             audioMonitor.start()
         }
+        if settings.accelerometerEnabled {
+            accelerometerMonitor.start()
+        }
         idleMonitor.start()
         motionDetector.reset()
     }
@@ -121,6 +125,7 @@ final class MonitoringCoordinator: ObservableObject {
         AppLogger.shared.info("Stopping sensors")
         cameraService.stop()
         audioMonitor.stop()
+        accelerometerMonitor.stop()
         idleMonitor.stop()
         motionDetector.reset()
         currentMotionScore = 0.0
@@ -161,6 +166,7 @@ final class MonitoringCoordinator: ObservableObject {
         subscribeToIdleMonitor()
         subscribeToCamera()
         subscribeToAudio()
+        subscribeToAccelerometer()
     }
 
     private func subscribeToScreenMonitor() {
@@ -273,5 +279,21 @@ final class MonitoringCoordinator: ObservableObject {
         // Lid open fires regardless of whether we're already in monitoring state —
         // the state machine handles the no-op if we're already alerting.
         processEvent(.lidOpened)
+    }
+
+    private func subscribeToAccelerometer() {
+        accelerometerMonitor.publisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                guard let self, self.settings.accelerometerEnabled else { return }
+                switch event.kind {
+                case .jerk(let g):
+                    AppLogger.shared.info("Jerk alert: \(String(format: "%.2f", g))g")
+                case .tilt(let deg):
+                    AppLogger.shared.info("Tilt alert: \(String(format: "%.1f", deg))°")
+                }
+                self.processEvent(.deviceMoved)
+            }
+            .store(in: &cancellables)
     }
 }

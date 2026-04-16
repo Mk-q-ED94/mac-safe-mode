@@ -67,6 +67,9 @@ actor MonitoringStateMachine {
         case (.monitoring, .lidOpened):
             return (.alerting, .fireAlert(type: .lidOpened, score: 1.0))
 
+        case (.monitoring, .deviceMoved):
+            return (.alerting, .fireAlert(type: .deviceMoved, score: 1.0))
+
         // ── ALERTING ──────────────────────────────────────────────────────────
         case (.alerting, .screenUnlocked),
              (.alerting, .userActivityDetected):

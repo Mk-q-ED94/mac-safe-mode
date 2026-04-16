@@ -28,6 +28,7 @@ enum StateMachineEvent {
     case faceDetected(boundingBox: CGRect)
     case loudSoundDetected(dBFS: Float)
     case lidOpened
+    case deviceMoved
 
     // Alert lifecycle
     case alertAcknowledged
@@ -37,26 +38,29 @@ enum StateMachineEvent {
 // MARK: - Alert Type
 
 enum AlertType: String, Codable {
-    case motion = "motion"
-    case face = "face"
-    case audio = "audio"
-    case lidOpened = "lid_opened"
+    case motion      = "motion"
+    case face        = "face"
+    case audio       = "audio"
+    case lidOpened   = "lid_opened"
+    case deviceMoved = "device_moved"
 
     var localizedTitle: String {
         switch self {
-        case .motion:    return "Motion Detected"
-        case .face:      return "Face Detected"
-        case .audio:     return "Sound Detected"
-        case .lidOpened: return "Lid Opened"
+        case .motion:      return "Motion Detected"
+        case .face:        return "Face Detected"
+        case .audio:       return "Sound Detected"
+        case .lidOpened:   return "Lid Opened"
+        case .deviceMoved: return "Device Moved"
         }
     }
 
     var systemImageName: String {
         switch self {
-        case .motion:    return "figure.walk"
-        case .face:      return "face.smiling"
-        case .audio:     return "waveform"
-        case .lidOpened: return "laptopcomputer.and.arrow.down"
+        case .motion:      return "figure.walk"
+        case .face:        return "face.smiling"
+        case .audio:       return "waveform"
+        case .lidOpened:   return "laptopcomputer.and.arrow.down"
+        case .deviceMoved: return "move.3d"
         }
     }
 }

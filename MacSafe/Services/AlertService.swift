@@ -76,9 +76,11 @@ final class AlertService: ObservableObject {
 
     private func notificationBody(for type: AlertType) -> String {
         switch type {
-        case .motion: return "Movement was detected near your Mac."
-        case .face:   return "A face was detected near your locked Mac."
-        case .audio:  return "A loud sound was detected near your Mac."
+        case .motion:      return "Movement was detected near your Mac."
+        case .face:        return "A face was detected near your locked Mac."
+        case .audio:       return "A loud sound was detected near your Mac."
+        case .lidOpened:   return "Your MacBook lid was opened."
+        case .deviceMoved: return "Your Mac was moved or picked up."
         }
     }
 

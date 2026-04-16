@@ -97,9 +97,11 @@ private struct AlertEventRow: View {
 
     private var typeColor: Color {
         switch event.type {
-        case .motion: return .blue
-        case .face:   return .orange
-        case .audio:  return .purple
+        case .motion:      return .blue
+        case .face:        return .orange
+        case .audio:       return .purple
+        case .lidOpened:   return .yellow
+        case .deviceMoved: return .red
         }
     }
 

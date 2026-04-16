@@ -58,6 +58,13 @@ struct SettingsView: View {
             }
 
             Toggle("Microphone (sound detection)", isOn: $settings.audioEnabled)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Toggle("Lid open detection", isOn: $settings.lidOpenDetectionEnabled)
+                Text("Alert when the MacBook lid is physically opened while monitoring.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
         }
     }
 

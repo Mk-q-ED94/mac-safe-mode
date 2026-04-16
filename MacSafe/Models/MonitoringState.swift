@@ -27,6 +27,7 @@ enum StateMachineEvent {
     case motionDetected(score: Float)
     case faceDetected(boundingBox: CGRect)
     case loudSoundDetected(dBFS: Float)
+    case lidOpened
 
     // Alert lifecycle
     case alertAcknowledged
@@ -39,20 +40,23 @@ enum AlertType: String, Codable {
     case motion = "motion"
     case face = "face"
     case audio = "audio"
+    case lidOpened = "lid_opened"
 
     var localizedTitle: String {
         switch self {
-        case .motion: return "Motion Detected"
-        case .face: return "Face Detected"
-        case .audio: return "Sound Detected"
+        case .motion:    return "Motion Detected"
+        case .face:      return "Face Detected"
+        case .audio:     return "Sound Detected"
+        case .lidOpened: return "Lid Opened"
         }
     }
 
     var systemImageName: String {
         switch self {
-        case .motion: return "figure.walk"
-        case .face: return "face.smiling"
-        case .audio: return "waveform"
+        case .motion:    return "figure.walk"
+        case .face:      return "face.smiling"
+        case .audio:     return "waveform"
+        case .lidOpened: return "laptopcomputer.and.arrow.down"
         }
     }
 }
@@ -66,4 +70,5 @@ enum ScreenEvent {
     case screensaverStopped
     case displaySleep
     case displayWake
+    case lidOpened      // Lid physically opened while MacBook was closed
 }

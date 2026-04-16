@@ -180,6 +180,8 @@ final class MonitoringCoordinator: ObservableObject {
                     self?.handleScreenLock()
                 case .displayWake:
                     self?.processEvent(.userActivityDetected)
+                case .lidOpened:
+                    self?.handleLidOpened()
                 }
             }
             .store(in: &cancellables)
@@ -264,5 +266,12 @@ final class MonitoringCoordinator: ObservableObject {
     private func handleScreenSaverStart() {
         guard settings.activateOnScreenSaver else { return }
         processEvent(.screenSaverStarted)
+    }
+
+    private func handleLidOpened() {
+        guard settings.lidOpenDetectionEnabled else { return }
+        // Lid open fires regardless of whether we're already in monitoring state —
+        // the state machine handles the no-op if we're already alerting.
+        processEvent(.lidOpened)
     }
 }

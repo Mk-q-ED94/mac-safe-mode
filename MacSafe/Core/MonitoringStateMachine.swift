@@ -64,6 +64,9 @@ actor MonitoringStateMachine {
         case (.monitoring, .loudSoundDetected(let dB)):
             return (.alerting, .fireAlert(type: .audio, score: dB))
 
+        case (.monitoring, .lidOpened):
+            return (.alerting, .fireAlert(type: .lidOpened, score: 1.0))
+
         // ── ALERTING ──────────────────────────────────────────────────────────
         case (.alerting, .screenUnlocked),
              (.alerting, .userActivityDetected):

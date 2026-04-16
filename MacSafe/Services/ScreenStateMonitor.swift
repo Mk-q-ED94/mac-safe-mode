@@ -1,16 +1,24 @@
 import Foundation
 import AppKit
 import Combine
+import IOKit
 
 // MARK: - Screen State Monitor
 
-/// Publishes ScreenEvent values when the display locks, unlocks, or the screensaver starts/stops.
+/// Publishes ScreenEvent values when the display locks, unlocks, screensaver starts/stops,
+/// or the MacBook lid is physically opened.
 final class ScreenStateMonitor {
 
     // MARK: - Publisher
 
     private let subject = PassthroughSubject<ScreenEvent, Never>()
     var publisher: AnyPublisher<ScreenEvent, Never> { subject.eraseToAnyPublisher() }
+
+    // MARK: - Lid State Tracking
+
+    /// Records lid state the last time the display slept or the screen locked.
+    /// Used to detect the closed→open transition on wake.
+    private var lidWasClosedAtSleep = false
 
     // MARK: - Lifecycle
 
@@ -81,7 +89,9 @@ final class ScreenStateMonitor {
     // MARK: - Handlers
 
     @objc private func handleScreenLocked() {
-        AppLogger.shared.info("Screen locked")
+        // Snapshot lid state at lock time so we can detect a lid-open on subsequent wake.
+        lidWasClosedAtSleep = isLidClosed()
+        AppLogger.shared.info("Screen locked (lid closed: \(lidWasClosedAtSleep))")
         subject.send(.locked)
     }
 
@@ -101,12 +111,49 @@ final class ScreenStateMonitor {
     }
 
     @objc private func handleDisplaySleep() {
-        AppLogger.shared.info("Display sleep")
+        // Snapshot lid state at sleep time.
+        lidWasClosedAtSleep = isLidClosed()
+        AppLogger.shared.info("Display sleep (lid closed: \(lidWasClosedAtSleep))")
         subject.send(.displaySleep)
     }
 
     @objc private func handleDisplayWake() {
         AppLogger.shared.info("Display wake")
+
+        // Check for lid-open: was closed before sleep/lock, now open.
+        if lidWasClosedAtSleep && !isLidClosed() {
+            AppLogger.shared.info("Lid opened detected on wake")
+            subject.send(.lidOpened)
+        }
+        lidWasClosedAtSleep = false
+
         subject.send(.displayWake)
+    }
+
+    // MARK: - IOKit Lid State
+
+    /// Returns true when the MacBook lid (clamshell) is currently closed.
+    ///
+    /// Reads `AppleClamshellState` from `IOPMrootDomain` in the IORegistry.
+    /// - `kCFBooleanTrue`  → lid is **closed**
+    /// - `kCFBooleanFalse` / absent → lid is **open**
+    /// On desktop Macs this property is absent, so the method returns false (treat as open).
+    func isLidClosed() -> Bool {
+        let service = IOServiceGetMatchingService(
+            kIOMainPortDefault,
+            IOServiceMatching("IOPMrootDomain")
+        )
+        guard service != IO_OBJECT_NULL else { return false }
+        defer { IOObjectRelease(service) }
+
+        guard let value = IORegistryEntryCreateCFProperty(
+            service,
+            "AppleClamshellState" as CFString,
+            kCFAllocatorDefault,
+            0
+        )?.takeRetainedValue() as? Bool else {
+            return false  // Property absent = desktop Mac or lid open
+        }
+        return value  // true = closed
     }
 }

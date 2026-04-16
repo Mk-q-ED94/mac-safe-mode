@@ -34,6 +34,11 @@ class AppSettings: ObservableObject {
         didSet { UserDefaults.standard.set(faceDetectionEnabled, forKey: "faceDetectionEnabled") }
     }
 
+    /// Alert when the MacBook lid is physically opened while monitoring is active.
+    @Published var lidOpenDetectionEnabled: Bool {
+        didSet { UserDefaults.standard.set(lidOpenDetectionEnabled, forKey: "lidOpenDetectionEnabled") }
+    }
+
     // MARK: - Activation Triggers
 
     @Published var activateOnScreenLock: Bool {
@@ -97,6 +102,7 @@ class AppSettings: ObservableObject {
         cameraEnabled = defaults.object(forKey: "cameraEnabled") as? Bool ?? true
         audioEnabled = defaults.object(forKey: "audioEnabled") as? Bool ?? true
         faceDetectionEnabled = defaults.object(forKey: "faceDetectionEnabled") as? Bool ?? true
+        lidOpenDetectionEnabled = defaults.object(forKey: "lidOpenDetectionEnabled") as? Bool ?? true
 
         activateOnScreenLock = defaults.object(forKey: "activateOnScreenLock") as? Bool ?? true
         activateOnScreenSaver = defaults.object(forKey: "activateOnScreenSaver") as? Bool ?? true

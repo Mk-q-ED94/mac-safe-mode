@@ -2,6 +2,7 @@ import Foundation
 import AppKit
 import Combine
 import IOKit
+import CoreGraphics
 
 // MARK: - Screen State Monitor
 
@@ -128,6 +129,18 @@ final class ScreenStateMonitor {
         lidWasClosedAtSleep = false
 
         subject.send(.displayWake)
+    }
+
+    // MARK: - Screen Lock State
+
+    /// Returns true if the login screen / lock screen is currently shown.
+    ///
+    /// Reads `CGSSessionScreenIsLocked` from the CoreGraphics session dictionary.
+    /// Works in sandboxed apps without special entitlements.
+    /// Returns false (conservative: assume unlocked) if the session dict is unavailable.
+    func isScreenLocked() -> Bool {
+        guard let dict = CGSessionCopyCurrentDictionary() as? [String: Any] else { return false }
+        return dict["CGSSessionScreenIsLocked"] as? Bool ?? false
     }
 
     // MARK: - IOKit Lid State

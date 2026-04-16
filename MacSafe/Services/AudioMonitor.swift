@@ -44,6 +44,7 @@ final class AudioMonitor {
 
     func stop() {
         guard isRunning else { return }
+        NotificationCenter.default.removeObserver(self, name: .AVAudioEngineConfigurationChange, object: engine)
         engine.inputNode.removeTap(onBus: 0)
         engine.stop()
         isRunning = false
@@ -64,6 +65,30 @@ final class AudioMonitor {
             self?.process(buffer: buffer)
         }
         engine.prepare()
+
+        // AVAudioEngineConfigurationChange fires when the audio hardware changes —
+        // for example, when the default microphone switches (e.g. Bluetooth headset
+        // connects/disconnects, or the system audio session is reset after sleep).
+        // We need to rebuild the tap and restart the engine to keep monitoring.
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleEngineConfigChange(_:)),
+            name: .AVAudioEngineConfigurationChange,
+            object: engine
+        )
+    }
+
+    @objc private func handleEngineConfigChange(_ notification: Notification) {
+        guard isRunning else { return }
+        AppLogger.shared.info("AudioMonitor: engine configuration changed — rebuilding tap and restarting")
+        engine.inputNode.removeTap(onBus: 0)
+        engine.stop()
+        do {
+            try configureEngine()
+            try engine.start()
+        } catch {
+            AppLogger.shared.error("AudioMonitor restart after config change failed: \(error.localizedDescription)")
+        }
     }
 
     // MARK: - Process Audio Buffer

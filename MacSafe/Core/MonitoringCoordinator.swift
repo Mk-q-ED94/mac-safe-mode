@@ -38,6 +38,15 @@ final class MonitoringCoordinator: ObservableObject {
     private var alertTimeoutTask: Task<Void, Never>?
     private static let alertTimeoutSeconds: TimeInterval = 30.0
 
+    // MARK: - Background Activity Assertion
+    //
+    // Held while sensors are running.
+    //   • Always prevents App Nap (ensures timers and Combine pipelines fire on schedule).
+    //   • Optionally also prevents system idle sleep when the user enables that setting,
+    //     so the Mac stays awake and keeps monitoring even if it would normally sleep.
+
+    private var monitoringActivity: NSObjectProtocol?
+
     // MARK: - Init
 
     init(settings: AppSettings = .shared) {
@@ -108,6 +117,17 @@ final class MonitoringCoordinator: ObservableObject {
         AppLogger.shared.info("Starting sensors")
         applySettings()
 
+        // Acquire a ProcessInfo activity assertion to:
+        //   1. Prevent App Nap — ensures background timers and Combine publishers fire reliably.
+        //   2. Optionally prevent system idle sleep — keeps the Mac awake during monitoring.
+        let options: ProcessInfo.ActivityOptions = settings.preventSystemSleepWhileMonitoring
+            ? [.background, .idleSystemSleepDisabled]
+            : [.background]
+        monitoringActivity = ProcessInfo.processInfo.beginActivity(
+            options: options,
+            reason: "MacSafe security monitoring"
+        )
+
         if settings.cameraEnabled {
             cameraService.start()
         }
@@ -123,6 +143,10 @@ final class MonitoringCoordinator: ObservableObject {
 
     private func stopSensors() {
         AppLogger.shared.info("Stopping sensors")
+
+        // Release the activity assertion — allows App Nap and system sleep to resume normally.
+        monitoringActivity = nil
+
         cameraService.stop()
         audioMonitor.stop()
         accelerometerMonitor.stop()
@@ -173,21 +197,22 @@ final class MonitoringCoordinator: ObservableObject {
         screenMonitor.publisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] event in
+                guard let self else { return }
                 switch event {
                 case .locked:
-                    self?.handleScreenLock()
+                    self.handleScreenLock()
                 case .unlocked:
-                    self?.processEvent(.screenUnlocked)
+                    self.processEvent(.screenUnlocked)
                 case .screensaverStarted:
-                    self?.handleScreenSaverStart()
+                    self.handleScreenSaverStart()
                 case .screensaverStopped:
-                    self?.processEvent(.screenUnlocked)
+                    self.processEvent(.screenUnlocked)
                 case .displaySleep:
-                    self?.handleScreenLock()
+                    self.handleDisplaySleep()
                 case .displayWake:
-                    self?.processEvent(.userActivityDetected)
+                    self.handleDisplayWake()
                 case .lidOpened:
-                    self?.handleLidOpened()
+                    self.handleLidOpened()
                 }
             }
             .store(in: &cancellables)
@@ -262,7 +287,7 @@ final class MonitoringCoordinator: ObservableObject {
             .store(in: &cancellables)
     }
 
-    // MARK: - Screen/Screensaver Helpers
+    // MARK: - Screen/Screensaver/Sleep Helpers
 
     private func handleScreenLock() {
         guard settings.activateOnScreenLock else { return }
@@ -272,6 +297,35 @@ final class MonitoringCoordinator: ObservableObject {
     private func handleScreenSaverStart() {
         guard settings.activateOnScreenSaver else { return }
         processEvent(.screenSaverStarted)
+    }
+
+    /// Called when the display goes to sleep.
+    /// Treat as a lock event so sensors activate — the camera will be interrupted
+    /// by the OS but the microphone and accelerometer continue working.
+    private func handleDisplaySleep() {
+        guard settings.activateOnScreenLock else { return }
+        processEvent(.screenLocked)
+    }
+
+    /// Called when the display wakes from sleep (including after system sleep).
+    ///
+    /// **Bug fix**: Previously this always sent `userActivityDetected`, which would
+    /// stop sensors even when the screen is still locked (e.g. after waking from sleep
+    /// with the lock screen showing). Now we check whether the screen is actually
+    /// unlocked before stopping sensors.
+    private func handleDisplayWake() {
+        if screenMonitor.isScreenLocked() {
+            // Screen is still locked — the Mac woke from sleep but hasn't been unlocked.
+            // Keep sensors running. If somehow we drifted to idle (race condition),
+            // re-activate immediately.
+            AppLogger.shared.info("Display woke while screen still locked — keeping sensors active")
+            if state == .idle {
+                processEvent(.screenLocked)
+            }
+        } else {
+            // Screen is unlocked — user is present, stop monitoring.
+            processEvent(.userActivityDetected)
+        }
     }
 
     private func handleLidOpened() {

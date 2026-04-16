@@ -69,29 +69,28 @@ final class MotionDetector {
     }
 
     private func toGrayscale(_ image: CIImage) -> CIImage {
-        // Use luminance weights to convert to grayscale
-        let colorMatrix = CIFilter.colorMatrix()
-        colorMatrix.inputImage = image
-        // R channel gets luminance weights for all output channels
-        colorMatrix.rVector = CIVector(x: 0.299, y: 0.587, z: 0.114, w: 0)
-        colorMatrix.gVector = CIVector(x: 0.299, y: 0.587, z: 0.114, w: 0)
-        colorMatrix.bVector = CIVector(x: 0.299, y: 0.587, z: 0.114, w: 0)
-        colorMatrix.aVector = CIVector(x: 0, y: 0, z: 0, w: 1)
-        colorMatrix.biasVector = CIVector(x: 0, y: 0, z: 0, w: 0)
+        // Use luminance weights to convert to grayscale via CIColorMatrix
+        guard let colorMatrix = CIFilter(name: "CIColorMatrix") else { return image }
+        colorMatrix.setValue(image, forKey: kCIInputImageKey)
+        colorMatrix.setValue(CIVector(x: 0.299, y: 0.587, z: 0.114, w: 0), forKey: "inputRVector")
+        colorMatrix.setValue(CIVector(x: 0.299, y: 0.587, z: 0.114, w: 0), forKey: "inputGVector")
+        colorMatrix.setValue(CIVector(x: 0.299, y: 0.587, z: 0.114, w: 0), forKey: "inputBVector")
+        colorMatrix.setValue(CIVector(x: 0, y: 0, z: 0, w: 1), forKey: "inputAVector")
+        colorMatrix.setValue(CIVector(x: 0, y: 0, z: 0, w: 0), forKey: "inputBiasVector")
         return colorMatrix.outputImage ?? image
     }
 
     private func absoluteDifference(a: CIImage, b: CIImage) -> CIImage {
-        guard let filter = CIFilter(name: "CIColorAbsoluteDifference") else {
-            // Fallback: use subtract blend mode
-            let subtractFilter = CIFilter.subtractBlendMode()
-            subtractFilter.inputImage = a
-            subtractFilter.backgroundImage = b
-            return subtractFilter.outputImage ?? a
+        if let filter = CIFilter(name: "CIColorAbsoluteDifference") {
+            filter.setValue(a, forKey: kCIInputImageKey)
+            filter.setValue(b, forKey: "inputImage2")
+            if let output = filter.outputImage { return output }
         }
-        filter.setValue(a, forKey: kCIInputImageKey)
-        filter.setValue(b, forKey: "inputImage2")
-        return filter.outputImage ?? a
+        // Fallback: use CISubtractBlendMode
+        guard let subtractFilter = CIFilter(name: "CISubtractBlendMode") else { return a }
+        subtractFilter.setValue(a, forKey: kCIInputImageKey)
+        subtractFilter.setValue(b, forKey: kCIInputBackgroundImageKey)
+        return subtractFilter.outputImage ?? a
     }
 
     private func averageLuminance(_ image: CIImage) -> Float {
@@ -99,9 +98,9 @@ final class MotionDetector {
         guard !extent.isInfinite, extent.width > 0, extent.height > 0 else { return 0 }
 
         // Use CIAreaAverage to get a 1x1 pixel with the average color
-        let averageFilter = CIFilter.areaAverage()
-        averageFilter.inputImage = image
-        averageFilter.extent = extent
+        guard let averageFilter = CIFilter(name: "CIAreaAverage") else { return 0 }
+        averageFilter.setValue(image, forKey: kCIInputImageKey)
+        averageFilter.setValue(CIVector(cgRect: extent), forKey: kCIInputExtentKey)
 
         guard let outputImage = averageFilter.outputImage else { return 0 }
 

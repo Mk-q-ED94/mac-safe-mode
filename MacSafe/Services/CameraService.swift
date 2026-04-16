@@ -40,6 +40,8 @@ final class CameraService: NSObject {
 
     func stop() {
         guard isRunning else { return }
+        NotificationCenter.default.removeObserver(self, name: .AVCaptureSessionWasInterrupted, object: session)
+        NotificationCenter.default.removeObserver(self, name: .AVCaptureSessionInterruptionEnded, object: session)
         captureQueue.async { [weak self] in
             self?.session.stopRunning()
             self?.isRunning = false
@@ -58,6 +60,58 @@ final class CameraService: NSObject {
     }
 
     private(set) var lastFrame: CVPixelBuffer?
+
+    // MARK: - Session Interruption Handling
+    //
+    // On macOS 14+ (and sometimes 13), the OS can interrupt the AVCaptureSession
+    // when the screen locks or the display sleeps as a privacy measure.
+    // We register for these notifications so we can log the event and automatically
+    // restart the session when the camera becomes available again (e.g. screen unlocks).
+
+    private func registerInterruptionObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sessionWasInterrupted(_:)),
+            name: .AVCaptureSessionWasInterrupted,
+            object: session
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sessionInterruptionEnded(_:)),
+            name: .AVCaptureSessionInterruptionEnded,
+            object: session
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sessionRuntimeError(_:)),
+            name: .AVCaptureSessionRuntimeError,
+            object: session
+        )
+    }
+
+    @objc private func sessionWasInterrupted(_ notification: Notification) {
+        AppLogger.shared.info("CameraService: session interrupted — camera unavailable (e.g. screen locked or display sleeping)")
+    }
+
+    @objc private func sessionInterruptionEnded(_ notification: Notification) {
+        AppLogger.shared.info("CameraService: interruption ended — restarting session")
+        captureQueue.async { [weak self] in
+            guard let self, self.isRunning else { return }
+            self.session.startRunning()
+        }
+    }
+
+    @objc private func sessionRuntimeError(_ notification: Notification) {
+        guard let error = notification.userInfo?[AVCaptureSessionErrorKey] as? AVError else { return }
+        AppLogger.shared.error("CameraService: runtime error \(error.code.rawValue) — \(error.localizedDescription)")
+        // Attempt recovery for transient errors (e.g. media services reset)
+        if error.code == .mediaServicesWereReset {
+            captureQueue.async { [weak self] in
+                guard let self, self.isRunning else { return }
+                self.session.startRunning()
+            }
+        }
+    }
 
     // MARK: - Session Configuration
 
@@ -85,6 +139,9 @@ final class CameraService: NSObject {
 
         guard session.canAddOutput(videoOutput) else { throw CameraError.cannotAddOutput }
         session.addOutput(videoOutput)
+
+        // Register for interruption/error notifications (must be after session is configured)
+        registerInterruptionObservers()
 
         // Set 1fps to minimize resource usage
         try device.lockForConfiguration()

@@ -43,6 +43,13 @@ struct SettingsView: View {
             }
 
             Toggle("Launch MacSafe at login", isOn: $settings.launchAtLogin)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Toggle("Prevent system sleep while monitoring", isOn: $settings.preventSystemSleepWhileMonitoring)
+                Text("Keeps the Mac awake so the microphone and accelerometer stay active. The camera may still be restricted by macOS when the display is off.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
         }
     }
 

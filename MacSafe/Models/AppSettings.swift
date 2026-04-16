@@ -95,6 +95,17 @@ class AppSettings: ObservableObject {
         }
     }
 
+    // MARK: - Sleep Prevention
+
+    /// When true, MacSafe holds an `idleSystemSleepDisabled` power assertion while
+    /// sensors are active, preventing the Mac from entering system idle sleep.
+    /// This allows the accelerometer and microphone to keep detecting threats even
+    /// if the Mac would otherwise sleep. The camera and display are still allowed
+    /// to sleep by the OS (hardware restriction when the display is off).
+    @Published var preventSystemSleepWhileMonitoring: Bool {
+        didSet { UserDefaults.standard.set(preventSystemSleepWhileMonitoring, forKey: "preventSystemSleepWhileMonitoring") }
+    }
+
     // MARK: - Init
 
     init() {
@@ -123,6 +134,7 @@ class AppSettings: ObservableObject {
         postRollSeconds = defaults.object(forKey: "postRollSeconds") as? Double ?? 5.0
 
         launchAtLogin = defaults.object(forKey: "launchAtLogin") as? Bool ?? false
+        preventSystemSleepWhileMonitoring = defaults.object(forKey: "preventSystemSleepWhileMonitoring") as? Bool ?? false
     }
 
     // MARK: - Helpers

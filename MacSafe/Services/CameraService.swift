@@ -104,12 +104,12 @@ final class CameraService: NSObject {
     @objc private func sessionRuntimeError(_ notification: Notification) {
         guard let error = notification.userInfo?[AVCaptureSessionErrorKey] as? AVError else { return }
         AppLogger.shared.error("CameraService: runtime error \(error.code.rawValue) — \(error.localizedDescription)")
-        // Attempt recovery for transient errors (e.g. media services reset)
-        if error.code == .mediaServicesWereReset {
-            captureQueue.async { [weak self] in
-                guard let self, self.isRunning else { return }
-                self.session.startRunning()
-            }
+        // Attempt recovery for transient errors (e.g. media services reset).
+        // AVError.Code does not expose a mediaServicesWereReset member on macOS,
+        // so we attempt restart unconditionally for any runtime error.
+        captureQueue.async { [weak self] in
+            guard let self, self.isRunning else { return }
+            self.session.startRunning()
         }
     }
 

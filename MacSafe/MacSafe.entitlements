@@ -2,24 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- App Sandbox -->
-	<key>com.apple.security.app-sandbox</key>
-	<true/>
-
-	<!-- Camera access for motion and face detection -->
+	<!-- Camera: required by Hardened Runtime so TCC can grant camera access -->
 	<key>com.apple.security.device.camera</key>
 	<true/>
 
-	<!-- Microphone access for audio level monitoring -->
+	<!-- Microphone: required by Hardened Runtime so TCC can grant microphone access -->
 	<key>com.apple.security.device.microphone</key>
 	<true/>
 
-	<!-- Outbound network access for Pushover API -->
-	<key>com.apple.security.network.client</key>
-	<true/>
-
-	<!-- Read/write access to Movies folder for video clips -->
-	<key>com.apple.security.files.movies.read-write</key>
-	<true/>
+	<!-- App Sandbox is intentionally omitted.
+	     Sandbox requires a paid Apple Developer account for distribution.
+	     Without sandbox: network, file system, and IOKit access are unrestricted,
+	     so no additional entitlements are needed for Pushover or video recording. -->
 </dict>
 </plist>

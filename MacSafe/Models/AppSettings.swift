@@ -39,6 +39,11 @@ class AppSettings: ObservableObject {
         didSet { UserDefaults.standard.set(lidOpenDetectionEnabled, forKey: "lidOpenDetectionEnabled") }
     }
 
+    /// Alert when the device is physically moved/picked up (Apple Silicon MacBooks only).
+    @Published var accelerometerEnabled: Bool {
+        didSet { UserDefaults.standard.set(accelerometerEnabled, forKey: "accelerometerEnabled") }
+    }
+
     // MARK: - Activation Triggers
 
     @Published var activateOnScreenLock: Bool {
@@ -103,6 +108,7 @@ class AppSettings: ObservableObject {
         audioEnabled = defaults.object(forKey: "audioEnabled") as? Bool ?? true
         faceDetectionEnabled = defaults.object(forKey: "faceDetectionEnabled") as? Bool ?? true
         lidOpenDetectionEnabled = defaults.object(forKey: "lidOpenDetectionEnabled") as? Bool ?? true
+        accelerometerEnabled = defaults.object(forKey: "accelerometerEnabled") as? Bool ?? true
 
         activateOnScreenLock = defaults.object(forKey: "activateOnScreenLock") as? Bool ?? true
         activateOnScreenSaver = defaults.object(forKey: "activateOnScreenSaver") as? Bool ?? true

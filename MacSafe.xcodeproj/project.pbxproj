@@ -41,6 +41,8 @@
 		BB000033 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA000033 /* UserNotifications.framework */; };
 		BB000034 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA000034 /* IOKit.framework */; };
 		BB000035 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA000035 /* Accelerate.framework */; };
+		BB000036 /* AccelerometerMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000037 /* AccelerometerMonitor.swift */; };
+		BB000037 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA000038 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		AA000034 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		AA000035 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		AA000036 /* MacSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacSafe.entitlements; sourceTree = "<group>"; };
+		AA000037 /* AccelerometerMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerMonitor.swift; sourceTree = "<group>"; };
+		AA000038 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		EE000099 /* MacSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -94,6 +98,7 @@
 				BB000033 /* UserNotifications.framework in Frameworks */,
 				BB000034 /* IOKit.framework in Frameworks */,
 				BB000035 /* Accelerate.framework in Frameworks */,
+			BB000037 /* CoreMotion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +161,7 @@
 				AA000012 /* AudioMonitor.swift */,
 				AA000013 /* PushoverService.swift */,
 				AA000014 /* AlertService.swift */,
+				AA000037 /* AccelerometerMonitor.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -211,6 +217,7 @@
 				AA000033 /* UserNotifications.framework */,
 				AA000034 /* IOKit.framework */,
 				AA000035 /* Accelerate.framework */,
+				AA000038 /* CoreMotion.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -319,6 +326,7 @@
 				BB000024 /* AppLogger.swift in Sources */,
 				BB000025 /* ImageUtilities.swift in Sources */,
 				BB000026 /* AudioUtilities.swift in Sources */,
+				BB000036 /* AccelerometerMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

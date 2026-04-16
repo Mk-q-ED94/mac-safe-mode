@@ -65,7 +65,25 @@ struct SettingsView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
+
+            VStack(alignment: .leading, spacing: 2) {
+                HStack {
+                    Toggle("Motion sensor (accelerometer)", isOn: $settings.accelerometerEnabled)
+                    if !accelerometerAvailable {
+                        Image(systemName: "exclamationmark.triangle")
+                            .foregroundStyle(.orange)
+                            .help("Requires Apple Silicon MacBook (M1 or later)")
+                    }
+                }
+                Text("Alert when the device is picked up or tilted. Catches theft from behind the camera. Apple Silicon MacBooks only.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
         }
+    }
+
+    private var accelerometerAvailable: Bool {
+        AccelerometerMonitor().isAvailable
     }
 
     // MARK: - Sensitivity

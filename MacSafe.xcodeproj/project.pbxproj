@@ -1,0 +1,510 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BB000001 /* MacSafeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001 /* MacSafeApp.swift */; };
+		BB000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000002 /* AppDelegate.swift */; };
+		BB000003 /* MonitoringStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000003 /* MonitoringStateMachine.swift */; };
+		BB000004 /* MonitoringCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000004 /* MonitoringCoordinator.swift */; };
+		BB000005 /* PermissionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000005 /* PermissionsManager.swift */; };
+		BB000006 /* ScreenStateMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000006 /* ScreenStateMonitor.swift */; };
+		BB000007 /* IdleMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000007 /* IdleMonitor.swift */; };
+		BB000008 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000008 /* CameraService.swift */; };
+		BB000009 /* MotionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000009 /* MotionDetector.swift */; };
+		BB000010 /* FaceDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000010 /* FaceDetector.swift */; };
+		BB000011 /* VideoRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000011 /* VideoRecorder.swift */; };
+		BB000012 /* AudioMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000012 /* AudioMonitor.swift */; };
+		BB000013 /* PushoverService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000013 /* PushoverService.swift */; };
+		BB000014 /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000014 /* AlertService.swift */; };
+		BB000015 /* MonitoringState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000015 /* MonitoringState.swift */; };
+		BB000016 /* AlertEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000016 /* AlertEvent.swift */; };
+		BB000017 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000017 /* AppSettings.swift */; };
+		BB000018 /* SensorConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000018 /* SensorConfig.swift */; };
+		BB000019 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000019 /* MenuBarView.swift */; };
+		BB000020 /* StatusIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000020 /* StatusIndicatorView.swift */; };
+		BB000021 /* AlertHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000021 /* AlertHistoryView.swift */; };
+		BB000022 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000022 /* SettingsView.swift */; };
+		BB000023 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000023 /* SettingsWindowController.swift */; };
+		BB000024 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000024 /* AppLogger.swift */; };
+		BB000025 /* ImageUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000025 /* ImageUtilities.swift */; };
+		BB000026 /* AudioUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000026 /* AudioUtilities.swift */; };
+		BB000027 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA000027 /* Assets.xcassets */; };
+		BB000028 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA000028 /* Localizable.strings */; };
+		BB000030 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA000030 /* AVFoundation.framework */; };
+		BB000031 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA000031 /* Vision.framework */; };
+		BB000032 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA000032 /* CoreImage.framework */; };
+		BB000033 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA000033 /* UserNotifications.framework */; };
+		BB000034 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA000034 /* IOKit.framework */; };
+		BB000035 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA000035 /* Accelerate.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA000001 /* MacSafeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacSafeApp.swift; sourceTree = "<group>"; };
+		AA000002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AA000003 /* MonitoringStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringStateMachine.swift; sourceTree = "<group>"; };
+		AA000004 /* MonitoringCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringCoordinator.swift; sourceTree = "<group>"; };
+		AA000005 /* PermissionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsManager.swift; sourceTree = "<group>"; };
+		AA000006 /* ScreenStateMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenStateMonitor.swift; sourceTree = "<group>"; };
+		AA000007 /* IdleMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleMonitor.swift; sourceTree = "<group>"; };
+		AA000008 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
+		AA000009 /* MotionDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionDetector.swift; sourceTree = "<group>"; };
+		AA000010 /* FaceDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetector.swift; sourceTree = "<group>"; };
+		AA000011 /* VideoRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecorder.swift; sourceTree = "<group>"; };
+		AA000012 /* AudioMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMonitor.swift; sourceTree = "<group>"; };
+		AA000013 /* PushoverService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushoverService.swift; sourceTree = "<group>"; };
+		AA000014 /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
+		AA000015 /* MonitoringState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringState.swift; sourceTree = "<group>"; };
+		AA000016 /* AlertEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertEvent.swift; sourceTree = "<group>"; };
+		AA000017 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		AA000018 /* SensorConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorConfig.swift; sourceTree = "<group>"; };
+		AA000019 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		AA000020 /* StatusIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIndicatorView.swift; sourceTree = "<group>"; };
+		AA000021 /* AlertHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHistoryView.swift; sourceTree = "<group>"; };
+		AA000022 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AA000023 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
+		AA000024 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
+		AA000025 /* ImageUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtilities.swift; sourceTree = "<group>"; };
+		AA000026 /* AudioUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUtilities.swift; sourceTree = "<group>"; };
+		AA000027 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA000028 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		AA000029 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA000030 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		AA000031 /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
+		AA000032 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		AA000033 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		AA000034 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		AA000035 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		AA000036 /* MacSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacSafe.entitlements; sourceTree = "<group>"; };
+		EE000099 /* MacSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CC000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB000030 /* AVFoundation.framework in Frameworks */,
+				BB000031 /* Vision.framework in Frameworks */,
+				BB000032 /* CoreImage.framework in Frameworks */,
+				BB000033 /* UserNotifications.framework in Frameworks */,
+				BB000034 /* IOKit.framework in Frameworks */,
+				BB000035 /* Accelerate.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DD000000 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				DD000001 /* MacSafe */,
+				DD000090 /* Frameworks */,
+				DD000091 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DD000001 /* MacSafe */ = {
+			isa = PBXGroup;
+			children = (
+				DD000002 /* App */,
+				DD000003 /* Core */,
+				DD000004 /* Services */,
+				DD000005 /* Models */,
+				DD000006 /* UI */,
+				DD000007 /* Utilities */,
+				DD000008 /* Resources */,
+				AA000029 /* Info.plist */,
+				AA000036 /* MacSafe.entitlements */,
+			);
+			path = MacSafe;
+			sourceTree = "<group>";
+		};
+		DD000002 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				AA000001 /* MacSafeApp.swift */,
+				AA000002 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		DD000003 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				AA000003 /* MonitoringStateMachine.swift */,
+				AA000004 /* MonitoringCoordinator.swift */,
+				AA000005 /* PermissionsManager.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		DD000004 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AA000006 /* ScreenStateMonitor.swift */,
+				AA000007 /* IdleMonitor.swift */,
+				AA000008 /* CameraService.swift */,
+				AA000009 /* MotionDetector.swift */,
+				AA000010 /* FaceDetector.swift */,
+				AA000011 /* VideoRecorder.swift */,
+				AA000012 /* AudioMonitor.swift */,
+				AA000013 /* PushoverService.swift */,
+				AA000014 /* AlertService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DD000005 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AA000015 /* MonitoringState.swift */,
+				AA000016 /* AlertEvent.swift */,
+				AA000017 /* AppSettings.swift */,
+				AA000018 /* SensorConfig.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DD000006 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				AA000019 /* MenuBarView.swift */,
+				AA000020 /* StatusIndicatorView.swift */,
+				AA000021 /* AlertHistoryView.swift */,
+				AA000022 /* SettingsView.swift */,
+				AA000023 /* SettingsWindowController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		DD000007 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AA000024 /* AppLogger.swift */,
+				AA000025 /* ImageUtilities.swift */,
+				AA000026 /* AudioUtilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		DD000008 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AA000027 /* Assets.xcassets */,
+				AA000028 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DD000090 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA000030 /* AVFoundation.framework */,
+				AA000031 /* Vision.framework */,
+				AA000032 /* CoreImage.framework */,
+				AA000033 /* UserNotifications.framework */,
+				AA000034 /* IOKit.framework */,
+				AA000035 /* Accelerate.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD000091 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE000099 /* MacSafe.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE000001 /* MacSafe */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE000010 /* Build configuration list for PBXNativeTarget "MacSafe" */;
+			buildPhases = (
+				CC000001 /* Frameworks */,
+				CC000002 /* Sources */,
+				CC000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacSafe;
+			productName = MacSafe;
+			productReference = EE000099 /* MacSafe.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EE000000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					EE000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = EE000011 /* Build configuration list for PBXProject "MacSafe" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DD000000;
+			productRefGroup = DD000091 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE000001 /* MacSafe */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CC000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB000027 /* Assets.xcassets in Resources */,
+				BB000028 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CC000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB000001 /* MacSafeApp.swift in Sources */,
+				BB000002 /* AppDelegate.swift in Sources */,
+				BB000003 /* MonitoringStateMachine.swift in Sources */,
+				BB000004 /* MonitoringCoordinator.swift in Sources */,
+				BB000005 /* PermissionsManager.swift in Sources */,
+				BB000006 /* ScreenStateMonitor.swift in Sources */,
+				BB000007 /* IdleMonitor.swift in Sources */,
+				BB000008 /* CameraService.swift in Sources */,
+				BB000009 /* MotionDetector.swift in Sources */,
+				BB000010 /* FaceDetector.swift in Sources */,
+				BB000011 /* VideoRecorder.swift in Sources */,
+				BB000012 /* AudioMonitor.swift in Sources */,
+				BB000013 /* PushoverService.swift in Sources */,
+				BB000014 /* AlertService.swift in Sources */,
+				BB000015 /* MonitoringState.swift in Sources */,
+				BB000016 /* AlertEvent.swift in Sources */,
+				BB000017 /* AppSettings.swift in Sources */,
+				BB000018 /* SensorConfig.swift in Sources */,
+				BB000019 /* MenuBarView.swift in Sources */,
+				BB000020 /* StatusIndicatorView.swift in Sources */,
+				BB000021 /* AlertHistoryView.swift in Sources */,
+				BB000022 /* SettingsView.swift in Sources */,
+				BB000023 /* SettingsWindowController.swift in Sources */,
+				BB000024 /* AppLogger.swift in Sources */,
+				BB000025 /* ImageUtilities.swift in Sources */,
+				BB000026 /* AudioUtilities.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		EE000020 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLE = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		EE000021 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLE = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		EE000022 /* Debug (Target) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MacSafe/MacSafe.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = MacSafe/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macsafe.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		EE000023 /* Release (Target) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MacSafe/MacSafe.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = MacSafe/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macsafe.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE000010 /* Build configuration list for PBXNativeTarget "MacSafe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE000022 /* Debug */,
+				EE000023 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE000011 /* Build configuration list for PBXProject "MacSafe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE000020 /* Debug */,
+				EE000021 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = EE000000 /* Project object */;
+}

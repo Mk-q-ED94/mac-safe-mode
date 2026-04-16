@@ -1,0 +1,47 @@
+# XcodeGen project specification for MacSafe
+# Usage: brew install xcodegen && xcodegen generate
+# This regenerates MacSafe.xcodeproj from scratch.
+
+name: MacSafe
+options:
+  bundleIdPrefix: com.macsafe
+  deploymentTarget:
+    macOS: "13.0"
+  xcodeVersion: "15.0"
+  generateEmptyDirectories: true
+  developmentLanguage: en
+
+targets:
+  MacSafe:
+    type: application
+    platform: macOS
+    sources:
+      - MacSafe
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.macsafe.app
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "5.9"
+        MACOSX_DEPLOYMENT_TARGET: "13.0"
+        INFOPLIST_FILE: MacSafe/Info.plist
+        CODE_SIGN_ENTITLEMENTS: MacSafe/MacSafe.entitlements
+        CODE_SIGN_STYLE: Automatic
+        ENABLE_HARDENED_RUNTIME: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+        COMBINE_HIDPI_IMAGES: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+      configs:
+        Debug:
+          SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+        Release:
+          SWIFT_OPTIMIZATION_LEVEL: "-O"
+          SWIFT_COMPILATION_MODE: wholemodule
+    dependencies:
+      - sdk: AVFoundation.framework
+      - sdk: Vision.framework
+      - sdk: CoreImage.framework
+      - sdk: UserNotifications.framework
+      - sdk: IOKit.framework
+      - sdk: Accelerate.framework

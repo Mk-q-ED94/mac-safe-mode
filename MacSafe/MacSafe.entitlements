@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- App Sandbox -->
+	<key>com.apple.security.app-sandbox</key>
+	<true/>
+
+	<!-- Camera access for motion and face detection -->
+	<key>com.apple.security.device.camera</key>
+	<true/>
+
+	<!-- Microphone access for audio level monitoring -->
+	<key>com.apple.security.device.microphone</key>
+	<true/>
+
+	<!-- Outbound network access for Pushover API -->
+	<key>com.apple.security.network.client</key>
+	<true/>
+
+	<!-- Read/write access to Movies folder for video clips -->
+	<key>com.apple.security.files.movies.read-write</key>
+	<true/>
+</dict>
+</plist>

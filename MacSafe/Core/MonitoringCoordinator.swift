@@ -26,6 +26,7 @@ final class MonitoringCoordinator: ObservableObject {
     private let videoRecorder = VideoRecorder()
     private let audioMonitor = AudioMonitor()
     private let accelerometerMonitor = AccelerometerMonitor()
+    private let whitelistManager = FaceWhitelistManager.shared
     private let alertService: AlertService
     let settings: AppSettings
 
@@ -191,6 +192,7 @@ final class MonitoringCoordinator: ObservableObject {
         subscribeToCamera()
         subscribeToAudio()
         subscribeToAccelerometer()
+        subscribeToWhitelist()
     }
 
     private func subscribeToScreenMonitor() {
@@ -333,6 +335,17 @@ final class MonitoringCoordinator: ObservableObject {
         // Lid open fires regardless of whether we're already in monitoring state —
         // the state machine handles the no-op if we're already alerting.
         processEvent(.lidOpened)
+    }
+
+    private func subscribeToWhitelist() {
+        // Push a fresh entries snapshot to FaceDetector whenever the whitelist or its toggle changes.
+        whitelistManager.$entries
+            .combineLatest(settings.$faceWhitelistEnabled)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] entries, enabled in
+                self?.faceDetector.setWhitelistEntries(enabled ? entries : [])
+            }
+            .store(in: &cancellables)
     }
 
     private func subscribeToAccelerometer() {

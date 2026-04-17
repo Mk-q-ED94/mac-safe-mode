@@ -143,10 +143,14 @@ final class CameraService: NSObject {
         // Register for interruption/error notifications (must be after session is configured)
         registerInterruptionObservers()
 
-        // Set 1fps to minimize resource usage
+        // Set lowest supported fps to minimize resource usage
         try device.lockForConfiguration()
-        device.activeVideoMinFrameDuration = CMTime(value: 1, timescale: 1)
-        device.activeVideoMaxFrameDuration = CMTime(value: 1, timescale: 1)
+        let supportedRanges = device.activeFormat.videoSupportedFrameRateRanges
+        if let minRange = supportedRanges.min(by: { $0.minFrameRate < $1.minFrameRate }) {
+            let duration = CMTime(value: 1, timescale: CMTimeScale(minRange.minFrameRate))
+            device.activeVideoMinFrameDuration = duration
+            device.activeVideoMaxFrameDuration = duration
+        }
         device.unlockForConfiguration()
     }
 

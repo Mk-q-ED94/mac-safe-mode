@@ -58,19 +58,35 @@ final class ScreenStateMonitor {
     private func registerWorkspaceNotifications() {
         let center = NSWorkspace.shared.notificationCenter
 
+        // macOS 14+ removed screensaverDidLaunchNotification / screensaverDidTerminateNotification.
+        // Use private notification names that still fire on macOS 14+.
+        #if compiler(>=5.9)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleScreenSaverStart),
+            name: NSNotification.Name("com.apple.screensaver.didstart"),
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleScreenSaverStop),
+            name: NSNotification.Name("com.apple.screensaver.didstop"),
+            object: nil
+        )
+        #else
         center.addObserver(
             self,
             selector: #selector(handleScreenSaverStart),
             name: NSWorkspace.screensaverDidLaunchNotification,
             object: nil
         )
-
         center.addObserver(
             self,
             selector: #selector(handleScreenSaverStop),
             name: NSWorkspace.screensaverDidTerminateNotification,
             object: nil
         )
+        #endif
 
         center.addObserver(
             self,

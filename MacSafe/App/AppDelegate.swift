@@ -65,12 +65,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         popover = pop
 
         // Update icon when state changes
-        coordinator.$state
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self, weak item] state in
-                item?.button?.image = self?.statusImage(for: state)
-            }
-            .store(in: &cancellables)
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
+            coordinator.$state
+                .sink { [weak self] state in
+                    self?.statusItem?.button?.image = self?.statusImage(for: state)
+                }
+                .store(in: &cancellables)
+        }
     }
 
     @objc private func togglePopover() {
@@ -124,7 +126,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         // Acknowledge alert when user taps notification
-        coordinator?.acknowledgeAlert()
+        Task { @MainActor in
+            coordinator?.acknowledgeAlert()
+        }
         completionHandler()
     }
 }

@@ -17,7 +17,7 @@ struct SettingsView: View {
         }
         .formStyle(.grouped)
         .padding()
-        .frame(width: 460, idealHeight: 560)
+        .frame(width: 460, height: 560)
     }
 
     // MARK: - Activation

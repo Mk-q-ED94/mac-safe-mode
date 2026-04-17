@@ -71,6 +71,13 @@ actor MonitoringStateMachine {
             return (.alerting, .fireAlert(type: .deviceMoved, score: 1.0))
 
         // ── ALERTING ──────────────────────────────────────────────────────────
+        // Face detection is async (Vision framework) so it often arrives after
+        // a synchronous motion event has already transitioned state to .alerting.
+        // Allow face alerts to fire from .alerting so they are never silently dropped.
+        // AlertService's 10-second debounce prevents notification spam.
+        case (.alerting, .faceDetected):
+            return (.alerting, .fireAlert(type: .face, score: 1.0))
+
         case (.alerting, .screenUnlocked),
              (.alerting, .userActivityDetected):
             return (.idle, .stopSensors)

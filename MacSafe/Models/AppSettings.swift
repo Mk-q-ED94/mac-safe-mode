@@ -34,6 +34,11 @@ class AppSettings: ObservableObject {
         didSet { UserDefaults.standard.set(faceDetectionEnabled, forKey: "faceDetectionEnabled") }
     }
 
+    /// When enabled, faces matching enrolled whitelist entries will not trigger alerts.
+    @Published var faceWhitelistEnabled: Bool {
+        didSet { UserDefaults.standard.set(faceWhitelistEnabled, forKey: "faceWhitelistEnabled") }
+    }
+
     /// Alert when the MacBook lid is physically opened while monitoring is active.
     @Published var lidOpenDetectionEnabled: Bool {
         didSet { UserDefaults.standard.set(lidOpenDetectionEnabled, forKey: "lidOpenDetectionEnabled") }
@@ -118,6 +123,7 @@ class AppSettings: ObservableObject {
         cameraEnabled = defaults.object(forKey: "cameraEnabled") as? Bool ?? true
         audioEnabled = defaults.object(forKey: "audioEnabled") as? Bool ?? true
         faceDetectionEnabled = defaults.object(forKey: "faceDetectionEnabled") as? Bool ?? true
+        faceWhitelistEnabled = defaults.object(forKey: "faceWhitelistEnabled") as? Bool ?? false
         lidOpenDetectionEnabled = defaults.object(forKey: "lidOpenDetectionEnabled") as? Bool ?? true
         accelerometerEnabled = defaults.object(forKey: "accelerometerEnabled") as? Bool ?? true
 

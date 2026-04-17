@@ -5,11 +5,20 @@ import SwiftUI
 struct SettingsView: View {
 
     @StateObject private var settings = AppSettings.shared
+    @ObservedObject private var whitelist = FaceWhitelistManager.shared
+
+    // Face enrollment sheet state
+    @State private var showingEnrollSheet = false
+    @State private var pendingImage: NSImage?
+    @State private var newPersonName = ""
+    @State private var enrollError: String?
+    @State private var isEnrolling = false
 
     var body: some View {
         Form {
             activationSection
             sensorsSection
+            whitelistSection
             sensitivitySection
             videoSection
             pushoverSection
@@ -17,7 +26,8 @@ struct SettingsView: View {
         }
         .formStyle(.grouped)
         .padding()
-        .frame(width: 460, height: 560)
+        .frame(width: 460, height: 620)
+        .sheet(isPresented: $showingEnrollSheet) { enrollSheet }
     }
 
     // MARK: - Activation
@@ -91,6 +101,131 @@ struct SettingsView: View {
 
     private var accelerometerAvailable: Bool {
         AccelerometerMonitor().isAvailable
+    }
+
+    // MARK: - Face Whitelist
+
+    private var whitelistSection: some View {
+        Section("Face Whitelist") {
+            Toggle("Ignore recognized faces", isOn: $settings.faceWhitelistEnabled)
+
+            if settings.faceWhitelistEnabled {
+                if whitelist.entries.isEmpty {
+                    Text("No faces enrolled. Add a photo below.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                } else {
+                    ForEach(whitelist.entries) { entry in
+                        HStack(spacing: 8) {
+                            if let img = entry.thumbnail {
+                                Image(nsImage: img)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 32, height: 32)
+                                    .clipShape(Circle())
+                            } else {
+                                Image(systemName: "person.circle")
+                                    .frame(width: 32, height: 32)
+                                    .foregroundStyle(.secondary)
+                            }
+                            Text(entry.name)
+                            Spacer()
+                            Button {
+                                whitelist.removeEntry(id: entry.id)
+                            } label: {
+                                Image(systemName: "trash")
+                                    .foregroundStyle(.red)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                }
+
+                Button("Add Person from Photo…") { pickPhoto() }
+
+                Text("Select a photo showing one clear, front-facing face. Recognition uses Apple Vision — accuracy may vary.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    // MARK: - Enroll Sheet
+
+    private var enrollSheet: some View {
+        VStack(spacing: 16) {
+            Text("Add Person")
+                .font(.headline)
+
+            if let img = pendingImage {
+                Image(nsImage: img)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 120, height: 120)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+
+            TextField("Name (e.g. John)", text: $newPersonName)
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 220)
+
+            if let err = enrollError {
+                Text(err)
+                    .font(.caption)
+                    .foregroundStyle(.red)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: 220)
+            }
+
+            HStack(spacing: 12) {
+                Button("Cancel") {
+                    showingEnrollSheet = false
+                    pendingImage = nil
+                    newPersonName = ""
+                    enrollError = nil
+                }
+                Button("Enroll") {
+                    guard let image = pendingImage else { return }
+                    isEnrolling = true
+                    enrollError = nil
+                    Task {
+                        let err = await whitelist.addEntry(name: newPersonName, image: image)
+                        isEnrolling = false
+                        if let err {
+                            enrollError = err
+                        } else {
+                            showingEnrollSheet = false
+                            pendingImage = nil
+                            newPersonName = ""
+                        }
+                    }
+                }
+                .disabled(newPersonName.trimmingCharacters(in: .whitespaces).isEmpty || isEnrolling)
+            }
+
+            if isEnrolling {
+                ProgressView()
+                    .scaleEffect(0.7)
+            }
+        }
+        .padding(24)
+        .frame(width: 300)
+    }
+
+    // MARK: - Photo Picker
+
+    private func pickPhoto() {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.image]
+        panel.canChooseDirectories = false
+        panel.allowsMultipleSelection = false
+        panel.message = "Choose a photo with one clear face"
+        guard panel.runModal() == .OK, let url = panel.url,
+              let image = NSImage(contentsOf: url) else { return }
+        pendingImage = image
+        newPersonName = ""
+        enrollError = nil
+        showingEnrollSheet = true
     }
 
     // MARK: - Sensitivity

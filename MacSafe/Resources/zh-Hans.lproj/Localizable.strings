@@ -1,0 +1,115 @@
+/* MacSafe 本地化字符串（简体中文） */
+
+/* 监控状态 */
+"Idle" = "空闲";
+"Monitoring" = "监控中";
+"ALERT" = "警报";
+"Paused" = "已暂停";
+
+/* 警报类型 */
+"Motion Detected" = "检测到运动";
+"Face Detected" = "检测到人脸";
+"Sound Detected" = "检测到声音";
+
+/* 菜单栏 */
+"Activate" = "激活";
+"Deactivate" = "停用";
+"Stop" = "停止";
+"Settings" = "设置";
+"Quit" = "退出";
+"Dismiss Alert" = "关闭警报";
+
+/* 警报历史 */
+"Recent Alerts" = "最近警报";
+"No alerts yet" = "暂无警报";
+"Clear" = "清除";
+
+/* 通知 */
+"MacSafe — Motion Detected" = "MacSafe — 检测到运动";
+"MacSafe — Face Detected" = "MacSafe — 检测到人脸";
+"MacSafe — Sound Detected" = "MacSafe — 检测到声音";
+
+/* 设置 — 分组标题 */
+"Automatic Activation" = "自动激活";
+"Sensors" = "传感器";
+"Face Whitelist" = "人脸白名单";
+"Sensitivity" = "灵敏度";
+"Video Recording" = "录像";
+"Mobile Push Notifications (Pushover)" = "移动推送通知（Pushover）";
+"About" = "关于";
+
+/* 设置 — 自动激活 */
+"Activate when screen locks" = "屏幕锁定时激活";
+"Activate when screensaver starts" = "屏保启动时激活";
+"Activate when idle for" = "空闲时激活，延迟";
+"Launch MacSafe at login" = "登录时启动 MacSafe";
+"Prevent system sleep while monitoring" = "监控时阻止系统睡眠";
+"Keeps the Mac awake so the microphone and accelerometer stay active. The camera may still be restricted by macOS when the display is off." = "保持 Mac 唤醒状态，以便麦克风和加速度计持续工作。当屏幕关闭时，摄像头可能仍受 macOS 限制。";
+
+/* 设置 — 空闲时间选项 */
+"1 min" = "1 分钟";
+"5 min" = "5 分钟";
+"10 min" = "10 分钟";
+"30 min" = "30 分钟";
+
+/* 设置 — 传感器 */
+"Camera (motion & face detection)" = "摄像头（运动与人脸检测）";
+"Face detection" = "人脸检测";
+"Microphone (sound detection)" = "麦克风（声音检测）";
+"Lid open detection" = "开盖检测";
+"Alert when the MacBook lid is physically opened while monitoring." = "监控期间 MacBook 盖子被打开时发出警报。";
+"Motion sensor (accelerometer)" = "运动传感器（加速度计）";
+"Requires Apple Silicon MacBook (M1 or later)" = "需要 Apple Silicon MacBook（M1 或更高版本）";
+"Alert when the device is picked up or tilted. Catches theft from behind the camera. Apple Silicon MacBooks only." = "设备被拾起或倾斜时发出警报，可捕捉摄像头盲区的盗窃行为。仅限 Apple Silicon MacBook。";
+
+/* 设置 — 人脸白名单 */
+"Ignore recognized faces" = "忽略已识别的人脸";
+"No faces enrolled. Add a photo below." = "尚未录入人脸，请在下方添加照片。";
+"Add Person from Photo…" = "从照片添加人员…";
+"Select a photo showing one clear, front-facing face. Recognition uses Apple Vision — accuracy may vary." = "请选择一张正面清晰的人脸照片。识别使用 Apple Vision，准确率可能有所不同。";
+
+/* 设置 — 录入页面 */
+"Add Person" = "添加人员";
+"Name (e.g. John)" = "姓名（如：张三）";
+"Cancel" = "取消";
+"Enroll" = "录入";
+"Choose a photo with one clear face" = "请选择一张包含清晰人脸的照片";
+
+/* 设置 — 灵敏度 */
+"Motion threshold" = "运动阈值";
+"Lower = more sensitive" = "越低越灵敏";
+"Audio threshold" = "音频阈值";
+"Higher (less negative) = louder sounds only" = "越高（越接近零）= 仅响亮声音触发";
+
+/* 设置 — 录像 */
+"Save video clips on alert" = "报警时保存视频片段";
+"Pre-roll buffer" = "预录缓冲";
+"Post-roll duration" = "录制后持续时间";
+"5 sec" = "5 秒";
+"10 sec" = "10 秒";
+"15 sec" = "15 秒";
+"30 sec" = "30 秒";
+"Open Recordings Folder" = "打开录像文件夹";
+
+/* 设置 — Pushover */
+"Enable Pushover notifications" = "启用 Pushover 通知";
+"User Key" = "用户密钥";
+"Your Pushover user key" = "您的 Pushover 用户密钥";
+"API Token" = "API 令牌";
+"App API token" = "应用 API 令牌";
+"Pushover configured" = "Pushover 已配置";
+"Enter both keys to enable mobile alerts." = "请输入两个密钥以启用移动警报。";
+"Get Pushover at pushover.net →" = "在 pushover.net 获取 Pushover →";
+
+/* 设置 — 关于 */
+"Version" = "版本";
+"macOS required" = "macOS 要求";
+"13.0 or later" = "13.0 或更高版本";
+
+/* 人脸白名单录入错误 */
+"Could not decode the selected image." = "无法解码所选图像。";
+"No face found — use a clear, front-facing photo." = "未找到人脸，请使用正面清晰的照片。";
+"Multiple faces detected — use a photo with one person." = "检测到多张人脸，请使用只有一人的照片。";
+"Could not compute face features." = "无法计算人脸特征。";
+"Could not serialize face features." = "无法序列化人脸特征。";
+"Could not create thumbnail." = "无法创建缩略图。";

@@ -34,7 +34,7 @@
 		BB000025 /* ImageUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000025 /* ImageUtilities.swift */; };
 		BB000026 /* AudioUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000026 /* AudioUtilities.swift */; };
 		BB000027 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA000027 /* Assets.xcassets */; };
-		BB000028 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA000028 /* Localizable.strings */; };
+		BB000028 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF000001 /* Localizable.strings */; };
 		BB000030 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA000030 /* AVFoundation.framework */; };
 		BB000031 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA000031 /* Vision.framework */; };
 		BB000032 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA000032 /* CoreImage.framework */; };
@@ -73,7 +73,8 @@
 		AA000025 /* ImageUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtilities.swift; sourceTree = "<group>"; };
 		AA000026 /* AudioUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUtilities.swift; sourceTree = "<group>"; };
 		AA000027 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AA000028 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		FF000002 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FF000003 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		AA000029 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA000030 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		AA000031 /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
@@ -86,6 +87,18 @@
 		AA000038 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		EE000099 /* MacSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXVariantGroup section */
+		FF000001 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FF000002 /* en */,
+				FF000003 /* zh-Hans */,
+			);
+			name = "Localizable.strings";
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		CC000001 /* Frameworks */ = {
@@ -203,7 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				AA000027 /* Assets.xcassets */,
-				AA000028 /* Localizable.strings */,
+				FF000001 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -272,6 +285,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = DD000000;
 			productRefGroup = DD000091 /* Products */;

@@ -1,0 +1,115 @@
+/* MacSafe Localizable Strings (English) */
+
+/* Monitoring States */
+"Idle" = "Idle";
+"Monitoring" = "Monitoring";
+"ALERT" = "ALERT";
+"Paused" = "Paused";
+
+/* Alert Types */
+"Motion Detected" = "Motion Detected";
+"Face Detected" = "Face Detected";
+"Sound Detected" = "Sound Detected";
+
+/* Menu Bar */
+"Activate" = "Activate";
+"Deactivate" = "Deactivate";
+"Stop" = "Stop";
+"Settings" = "Settings";
+"Quit" = "Quit";
+"Dismiss Alert" = "Dismiss Alert";
+
+/* Alert History */
+"Recent Alerts" = "Recent Alerts";
+"No alerts yet" = "No alerts yet";
+"Clear" = "Clear";
+
+/* Notifications */
+"MacSafe — Motion Detected" = "MacSafe — Motion Detected";
+"MacSafe — Face Detected" = "MacSafe — Face Detected";
+"MacSafe — Sound Detected" = "MacSafe — Sound Detected";
+
+/* Settings — Section Headers */
+"Automatic Activation" = "Automatic Activation";
+"Sensors" = "Sensors";
+"Face Whitelist" = "Face Whitelist";
+"Sensitivity" = "Sensitivity";
+"Video Recording" = "Video Recording";
+"Mobile Push Notifications (Pushover)" = "Mobile Push Notifications (Pushover)";
+"About" = "About";
+
+/* Settings — Activation */
+"Activate when screen locks" = "Activate when screen locks";
+"Activate when screensaver starts" = "Activate when screensaver starts";
+"Activate when idle for" = "Activate when idle for";
+"Launch MacSafe at login" = "Launch MacSafe at login";
+"Prevent system sleep while monitoring" = "Prevent system sleep while monitoring";
+"Keeps the Mac awake so the microphone and accelerometer stay active. The camera may still be restricted by macOS when the display is off." = "Keeps the Mac awake so the microphone and accelerometer stay active. The camera may still be restricted by macOS when the display is off.";
+
+/* Settings — Idle Picker */
+"1 min" = "1 min";
+"5 min" = "5 min";
+"10 min" = "10 min";
+"30 min" = "30 min";
+
+/* Settings — Sensors */
+"Camera (motion & face detection)" = "Camera (motion & face detection)";
+"Face detection" = "Face detection";
+"Microphone (sound detection)" = "Microphone (sound detection)";
+"Lid open detection" = "Lid open detection";
+"Alert when the MacBook lid is physically opened while monitoring." = "Alert when the MacBook lid is physically opened while monitoring.";
+"Motion sensor (accelerometer)" = "Motion sensor (accelerometer)";
+"Requires Apple Silicon MacBook (M1 or later)" = "Requires Apple Silicon MacBook (M1 or later)";
+"Alert when the device is picked up or tilted. Catches theft from behind the camera. Apple Silicon MacBooks only." = "Alert when the device is picked up or tilted. Catches theft from behind the camera. Apple Silicon MacBooks only.";
+
+/* Settings — Face Whitelist */
+"Ignore recognized faces" = "Ignore recognized faces";
+"No faces enrolled. Add a photo below." = "No faces enrolled. Add a photo below.";
+"Add Person from Photo…" = "Add Person from Photo…";
+"Select a photo showing one clear, front-facing face. Recognition uses Apple Vision — accuracy may vary." = "Select a photo showing one clear, front-facing face. Recognition uses Apple Vision — accuracy may vary.";
+
+/* Settings — Enroll Sheet */
+"Add Person" = "Add Person";
+"Name (e.g. John)" = "Name (e.g. John)";
+"Cancel" = "Cancel";
+"Enroll" = "Enroll";
+"Choose a photo with one clear face" = "Choose a photo with one clear face";
+
+/* Settings — Sensitivity */
+"Motion threshold" = "Motion threshold";
+"Lower = more sensitive" = "Lower = more sensitive";
+"Audio threshold" = "Audio threshold";
+"Higher (less negative) = louder sounds only" = "Higher (less negative) = louder sounds only";
+
+/* Settings — Video */
+"Save video clips on alert" = "Save video clips on alert";
+"Pre-roll buffer" = "Pre-roll buffer";
+"Post-roll duration" = "Post-roll duration";
+"5 sec" = "5 sec";
+"10 sec" = "10 sec";
+"15 sec" = "15 sec";
+"30 sec" = "30 sec";
+"Open Recordings Folder" = "Open Recordings Folder";
+
+/* Settings — Pushover */
+"Enable Pushover notifications" = "Enable Pushover notifications";
+"User Key" = "User Key";
+"Your Pushover user key" = "Your Pushover user key";
+"API Token" = "API Token";
+"App API token" = "App API token";
+"Pushover configured" = "Pushover configured";
+"Enter both keys to enable mobile alerts." = "Enter both keys to enable mobile alerts.";
+"Get Pushover at pushover.net →" = "Get Pushover at pushover.net →";
+
+/* Settings — About */
+"Version" = "Version";
+"macOS required" = "macOS required";
+"13.0 or later" = "13.0 or later";
+
+/* Face Whitelist Enrollment Errors */
+"Could not decode the selected image." = "Could not decode the selected image.";
+"No face found — use a clear, front-facing photo." = "No face found — use a clear, front-facing photo.";
+"Multiple faces detected — use a photo with one person." = "Multiple faces detected — use a photo with one person.";
+"Could not compute face features." = "Could not compute face features.";
+"Could not serialize face features." = "Could not serialize face features.";
+"Could not create thumbnail." = "Could not create thumbnail.";
